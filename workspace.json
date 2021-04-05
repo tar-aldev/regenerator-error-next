@@ -1,0 +1,99 @@
+{
+  "version": 2,
+  "cli": {
+    "defaultCollection": "@nrwl/next"
+  },
+  "defaultProject": "error-regen",
+  "generators": {
+    "@nrwl/react": {
+      "application": {
+        "babel": true
+      }
+    },
+    "@nrwl/next": {
+      "application": {
+        "style": "scss",
+        "linter": "eslint"
+      }
+    }
+  },
+  "projects": {
+    "error-regen": {
+      "root": "apps/error-regen",
+      "sourceRoot": "apps/error-regen",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/next:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "root": "apps/error-regen",
+            "outputPath": "dist/apps/error-regen"
+          },
+          "configurations": {
+            "production": {}
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/next:server",
+          "options": {
+            "buildTarget": "error-regen:build",
+            "dev": true
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "error-regen:build:production",
+              "dev": false
+            }
+          }
+        },
+        "export": {
+          "executor": "@nrwl/next:export",
+          "options": {
+            "buildTarget": "error-regen:build:production"
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/error-regen"],
+          "options": {
+            "jestConfig": "apps/error-regen/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/error-regen/**/*.{ts,tsx,js,jsx}"]
+          }
+        }
+      }
+    },
+    "error-regen-e2e": {
+      "root": "apps/error-regen-e2e",
+      "sourceRoot": "apps/error-regen-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/error-regen-e2e/cypress.json",
+            "tsConfig": "apps/error-regen-e2e/tsconfig.e2e.json",
+            "devServerTarget": "error-regen:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "error-regen:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/error-regen-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    }
+  }
+}
