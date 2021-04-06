@@ -1,3 +1,5 @@
 {
-  "babelrcRoots": ["*"]
+  "presets": ["@nrwl/web/babel"],
+  "babelrcRoots": ["*"],
+  "plugins": ["add-react-displayname"]
 }

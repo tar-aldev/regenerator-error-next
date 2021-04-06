@@ -29,6 +29,13 @@
     "error-regen-e2e": {
       "tags": [],
       "implicitDependencies": ["error-regen"]
+    },
+    "plain-react": {
+      "tags": []
+    },
+    "plain-react-e2e": {
+      "tags": [],
+      "implicitDependencies": ["plain-react"]
     }
   }
 }

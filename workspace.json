@@ -7,7 +7,16 @@
   "generators": {
     "@nrwl/react": {
       "application": {
+        "style": "scss",
+        "linter": "eslint",
         "babel": true
+      },
+      "component": {
+        "style": "scss"
+      },
+      "library": {
+        "style": "scss",
+        "linter": "eslint"
       }
     },
     "@nrwl/next": {
@@ -91,6 +100,106 @@
           "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["apps/error-regen-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "plain-react": {
+      "root": "apps/plain-react",
+      "sourceRoot": "apps/plain-react/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/web:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/plain-react",
+            "index": "apps/plain-react/src/index.html",
+            "main": "apps/plain-react/src/main.tsx",
+            "polyfills": "apps/plain-react/src/polyfills.ts",
+            "tsConfig": "apps/plain-react/tsconfig.app.json",
+            "assets": [
+              "apps/plain-react/src/favicon.ico",
+              "apps/plain-react/src/assets"
+            ],
+            "styles": ["apps/plain-react/src/styles.scss"],
+            "scripts": [],
+            "webpackConfig": "@nrwl/react/plugins/webpack"
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/plain-react/src/environments/environment.ts",
+                  "with": "apps/plain-react/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/web:dev-server",
+          "options": {
+            "buildTarget": "plain-react:build"
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "plain-react:build:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/plain-react/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/plain-react"],
+          "options": {
+            "jestConfig": "apps/plain-react/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "plain-react-e2e": {
+      "root": "apps/plain-react-e2e",
+      "sourceRoot": "apps/plain-react-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/plain-react-e2e/cypress.json",
+            "tsConfig": "apps/plain-react-e2e/tsconfig.e2e.json",
+            "devServerTarget": "plain-react:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "plain-react:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/plain-react-e2e/**/*.{js,ts}"]
           }
         }
       }
